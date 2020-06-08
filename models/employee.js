@@ -8,7 +8,7 @@ const employeeFields = {
   dni: Number,
   birth_date: Date,
   gender: String,
-  hire_date: Date
+  hire_date: Date 
 };
 
 const employeeSchema = new Schema(employeeFields);

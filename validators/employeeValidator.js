@@ -24,13 +24,14 @@ const CantRepeatDNI = {
 
 const AgeAtLeast18 = {
   validate: async function (typeName, originalObject, materializedObject) {
-    const now = Date()
-    const nowStr = now.toString();
-
+    const now = Date.now()
     const bday = materializedObject.birth_date;
-    const bdayStr = bday.toString();
+    
+    const age = now.getMonth() < bday.getMonth() ?
+      now.getFullYear() - bday.getFullYear() - 1
+      : now.getFullYear() - bday.getFullYear();
 
-    if (nowStr - bdayStr < 18) {
+    if ( age < 18 ) {
       throw new CantBeYoungerThan18Error(typeName);
     }
   }
