@@ -6,7 +6,7 @@ const salaryFields = {
     empId: Schema.Types.ObjectId,
     salary: Number,
     from_date: Date,
-    to_Date: Date
+    to_date: Date
 };
 
 const salarySchema = new Schema(salaryFields);
