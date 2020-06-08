@@ -5,12 +5,11 @@ const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObje
 
 const Employee = require('../models/employee').Employee;
 
-/*
+
 const {
-  CantRepeatName,
-  CantDeleteEmployeesWithBooks,
-} = require('../validators/Employees.validator');
-*/
+  CantRepeatDNI, AgeAtLeast18
+} = require('../validators/employeeValidator');
+
 
 const {
     GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt
@@ -25,11 +24,12 @@ const EmployeeType = new GraphQLObjectType({
         validations: {
             'UPDATE':
                 [
-                    //CantRepeatName,
+                    CantRepeatDNI,
+                    AgeAtLeast18
                 ],
             'DELETE':
                 [
-                    //CantDeleteEmployeesWithBooks,
+                    
                 ],
         },
     },
