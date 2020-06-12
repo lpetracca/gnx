@@ -1,18 +1,14 @@
 const graphql = require('graphql');
 const gnx = require('@simtlix/gnx');
-const SexTypeEnum = require('./enums/sex.enum');
 const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObjectType');
 
 const EmployeeType = require('./employee'); 
 const Employee = require('../models/employee').Employee;
 const Title = require('../models/title').Title;
 
-/*
-const {
-  CantRepeatName,
-  CantDeleteTitleWithBooks,
-} = require('../validators/Title.validator');
-*/
+
+const { fromToDate } = require('../validators/from-toDate.validator');
+const { UniqueTitleForDeptEmployee } = require('../validators/title.validator');
 
 const {
     GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt
@@ -25,14 +21,17 @@ const TitleType = new GraphQLObjectType({
     description: 'Represent titles',
     extensions: {
         validations: {
+            'CREATE':
+                [
+                    fromToDate,
+                    UniqueTitleForDeptEmployee
+                ],
             'UPDATE':
                 [
-                    //CantRepeatName,
+                    fromToDate,
+                    UniqueTitleForDeptEmployee
                 ],
-            'DELETE':
-                [
-                    //CantDeleteTitleWithBooks,
-                ],
+            
         },
     },
     
@@ -45,6 +44,7 @@ const TitleType = new GraphQLObjectType({
             type: EmployeeType,
             extensions: {
                 relation: {
+                embedded: false,
                 connectionField: 'empId',
                 },
             },

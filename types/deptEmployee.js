@@ -8,31 +8,26 @@ const DeptEmployee = require('../models/deptEmployee').DeptEmployee;
 const Employee = require('../models/employee').Employee;
 const Department = require('../models/department').Department;
 
-/*
-const {
-  CantRepeatName,
-  CantDeleteDeptEmployeesWithBooks,
-} = require('../validators/DeptEmployees.validator');
-*/
+const { fromToDate } = require('../validators/from-toDate.validator');
 
 const {
-    GraphQLID, GraphQLObjectType,GraphQLInt } = graphql;
+    GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
 
-const deptEmployeeType = new GraphQLObjectType({
-    name: 'deptEmployeeType',
+const DeptEmployeeType = new GraphQLObjectType({
+    name: 'DeptEmployeeType',
     description: 'Represent dept employees',
     extensions: {
       validations: {
+        'CREATE':
+                [
+                    fromToDate
+                ],
         'UPDATE':
-        [
-         // CantRepeatName,
-        ],
-        'DELETE' :
-        [
-         // CantDeleteDeptEmployeeWithBooks,
-        ],
+                [
+                    fromToDate
+                ],
       },
     },
 
@@ -69,6 +64,6 @@ const deptEmployeeType = new GraphQLObjectType({
 
 
 
-gnx.connect(DeptEmployee, deptEmployeeType, 'deptEmployee', 'deptEmployees');
+gnx.connect(DeptEmployee, DeptEmployeeType, 'deptEmployee', 'deptEmployees');
 
-module.exports = deptEmployeeType;
+module.exports = DeptEmployeeType;

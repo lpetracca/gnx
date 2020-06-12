@@ -1,8 +1,6 @@
 const gnx = require('@simtlix/gnx');
 const GNXError = gnx.GNXError;
 const { Employee } = require('../models/employee');
-const { GraphQLDate } = require('graphql-iso-date');
-const Date = GraphQLDate;
 
 // Validate unique dni
 const CantRepeatDNI = {
@@ -24,7 +22,7 @@ const CantRepeatDNI = {
 
 const AgeAtLeast18 = {
   validate: async function (typeName, originalObject, materializedObject) {
-    const now = Date.now()
+    const now = new Date()
     const bday = materializedObject.birth_date;
     
     const age = now.getMonth() < bday.getMonth() ?
@@ -42,16 +40,6 @@ class CantBeYoungerThan18Error extends GNXError {
       super(typeName,'Employee must be at least 18 years old', 'CantBeYoungerThan18Error');
     }
   };
-
-  
-  const executeAuditableOnUpdating = async (objectId, modifiedObject) => {
-    const promotionModel = gnx.getModel(PromotionType);
-    return AuditableGraphQLObjectTypeController.onUpdating(
-      objectId, modifiedObject, promotionModel
-    );
-  };
-
-
 
 module.exports = {
     CantRepeatDNI,

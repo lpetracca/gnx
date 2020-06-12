@@ -6,12 +6,7 @@ const EmployeeType = require('./employee');
 const Salary = require('../models/salary').Salary;
 const Employee = require('../models/employee').Employee;
 
-/*
-const {
-  CantRepeatName,
-  CantDeleteSalarysWithBooks,
-} = require('../validators/Salarys.validator');
-*/
+const { fromToDate } = require('../validators/from-toDate.validator');
 
 const {
     GraphQLID, GraphQLObjectType,GraphQLInt } = graphql;
@@ -23,14 +18,14 @@ const SalaryType = new GraphQLObjectType({
     description: 'Represent salaries',
     extensions: {
       validations: {
+        'CREATE':
+                [
+                    fromToDate
+                ],
         'UPDATE':
-        [
-         // CantRepeatName,
-        ],
-        'DELETE' :
-        [
-         // CantDeleteSalaryWithBooks,
-        ],
+                [
+                    fromToDate
+                ]
       },
     },
 
@@ -43,6 +38,7 @@ const SalaryType = new GraphQLObjectType({
             type: EmployeeType,
             extensions: {
                 relation: {
+                embedded: false,
                 connectionField: 'empId',
                 },
             },

@@ -3,14 +3,7 @@ const gnx = require('@simtlix/gnx');
 const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObjectType');
 
 const Department = require('../models/department').Department;
-
-
-/*
-const {
-  CantRepeatName,
-  CantDeleteDepartmentsWithBooks,
-} = require('../validators/Departments.validator');
-*/
+const { CantRepeatName } = require('../validators/department.validator')
 
 const { GraphQLString,
     GraphQLID, GraphQLObjectType } = graphql;
@@ -20,20 +13,23 @@ const DeptartmentType = new GraphQLObjectType({
     description: 'Represent deptartments',
     extensions: {
       validations: {
+        'CREATE' :
+        [
+          CantRepeatName
+        ],
+        
         'UPDATE':
         [
-         // CantRepeatName,
-        ],
-        'DELETE' :
-        [
-         // CantDeleteDepartmentWithBooks,
-        ],
+         CantRepeatName
+        ]
+        
       },
     },
 
     fields: () => Object.assign(AuditableObjectFields, {
         id: { type: GraphQLID },
         dept_name: { type: GraphQLString }
+        
     }),
 });
 

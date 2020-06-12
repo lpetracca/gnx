@@ -8,13 +8,7 @@ const DeptManager = require('../models/deptManager').DeptManager;
 const Employee = require('../models/employee').Employee;
 const Department = require('../models/department').Department;
 
-
-/*
-const {
-  CantRepeatName,
-  CantDeleteDeptManagersWithBooks,
-} = require('../validators/DeptManagers.validator');
-*/
+const { fromToDate } = require('../validators/from-toDate.validator');
 
 const {
     GraphQLID, GraphQLObjectType } = graphql;
@@ -26,14 +20,14 @@ const DeptManagerType = new GraphQLObjectType({
     description: 'Represent dept manager',
     extensions: {
       validations: {
+        'CREATE':
+                [
+                    fromToDate
+                ],
         'UPDATE':
-        [
-         // CantRepeatName,
-        ],
-        'DELETE' :
-        [
-         // CantDeleteDeptManagerWithBooks,
-        ],
+                [
+                    fromToDate
+                ],
       },
     },
 
@@ -45,6 +39,7 @@ const DeptManagerType = new GraphQLObjectType({
             type: EmployeeType,
             extensions: {
                 relation: {
+                embedded: false,
                 connectionField: 'empId',
                 },
             },
@@ -57,6 +52,7 @@ const DeptManagerType = new GraphQLObjectType({
             type: DepartmentType,
             extensions: {
                 relation: {
+                    embedded: false,
                     connectionField: 'deptId'
                 }
             },
