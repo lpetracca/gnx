@@ -3,7 +3,10 @@ const gnx = require('@simtlix/gnx');
 const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObjectType');
 
 const Department = require('../models/department').Department;
-const { CantRepeatName } = require('../validators/department.validator')
+
+const { CantRepeatName,
+  CantDeleteDepartmentWithDeptEmployeeError,
+  CantDeleteDepartmentWithDeptManagerError } = require('../validators/department.validator')
 
 const { GraphQLString,
     GraphQLID, GraphQLObjectType } = graphql;
@@ -21,6 +24,12 @@ const DeptartmentType = new GraphQLObjectType({
         'UPDATE':
         [
          CantRepeatName
+        ],
+        
+        'DELETE':
+        [
+          CantDeleteDepartmentWithDeptEmployeeError,
+          CantDeleteDepartmentWithDeptManagerError
         ]
         
       },

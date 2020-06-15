@@ -5,14 +5,15 @@ const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObje
 
 const Employee = require('../models/employee').Employee;
 
-const {
-  CantRepeatDNI, AgeAtLeast18
-} = require('../validators/employee.validator');
+const { CantRepeatDNI,
+    AgeAtLeast18,
+    CantDeleteEmployeeWithSalaryError,
+    CantDeleteEmployeeWithTitleError,
+    CantDeleteEmployeeWithDeptEmployeeError,
+    CantDeleteEmployeeWithDeptManagerError } = require('../validators/employee.validator');
 
 
-const {
-    GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt, GraphQLList
-  } = graphql;
+const { GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
   
@@ -31,6 +32,14 @@ const EmployeeType = new GraphQLObjectType({
             [
                 CantRepeatDNI,
                 AgeAtLeast18
+            ],
+            
+            'DELETE':
+            [
+                CantDeleteEmployeeWithSalaryError,
+                CantDeleteEmployeeWithTitleError,
+                CantDeleteEmployeeWithDeptEmployeeError,
+                CantDeleteEmployeeWithDeptManagerError
             ]
         },
     },
@@ -43,8 +52,7 @@ const EmployeeType = new GraphQLObjectType({
         birth_date: { type: GraphQLDate },
         gender: { type: SexTypeEnum },
         hire_date: { type: GraphQLDate }
-
-    })
+    }),
 });
 
 

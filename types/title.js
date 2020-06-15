@@ -10,9 +10,7 @@ const Title = require('../models/title').Title;
 const { fromToDate } = require('../validators/from-toDate.validator');
 const { UniqueTitleForDeptEmployee } = require('../validators/title.validator');
 
-const {
-    GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt
-  } = graphql;
+const { GraphQLString, GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
   

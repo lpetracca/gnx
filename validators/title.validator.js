@@ -14,8 +14,6 @@ const UniqueTitleForDeptEmployee = {
         const FoundDeptartment =
             await DeptEmployee.findOne({'deptId': FoundDeptEmployee.deptId })
         
-        //const empAndDeptIDCompare = FoundDeptEmployee && FoundDeptartment.deptId
-        
         if (FoundTitle && FoundDeptartment && FoundTitle._id != materializedObject.id) {
             throw new CantUpdateEmployeeWithTwoTitles(typeName);
         }
@@ -26,7 +24,7 @@ const UniqueTitleForDeptEmployee = {
     }
   };
 
-
+  
 module.exports = {
     UniqueTitleForDeptEmployee
   };

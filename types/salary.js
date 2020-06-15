@@ -8,8 +8,7 @@ const Employee = require('../models/employee').Employee;
 
 const { fromToDate } = require('../validators/from-toDate.validator');
 
-const {
-    GraphQLID, GraphQLObjectType,GraphQLInt } = graphql;
+const { GraphQLID, GraphQLObjectType,GraphQLInt } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
 

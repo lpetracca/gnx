@@ -9,9 +9,9 @@ const Employee = require('../models/employee').Employee;
 const Department = require('../models/department').Department;
 
 const { fromToDate } = require('../validators/from-toDate.validator');
+const { CantHave2ManagersAtSameTime } = require('../validators/deptManager.validator');
 
-const {
-    GraphQLID, GraphQLObjectType } = graphql;
+const { GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
 
@@ -22,11 +22,13 @@ const DeptManagerType = new GraphQLObjectType({
       validations: {
         'CREATE':
                 [
-                    fromToDate
+                    fromToDate,
+                    CantHave2ManagersAtSameTime
                 ],
         'UPDATE':
                 [
-                    fromToDate
+                    fromToDate,
+                    CantHave2ManagersAtSameTime
                 ],
       },
     },
@@ -52,7 +54,6 @@ const DeptManagerType = new GraphQLObjectType({
             type: DepartmentType,
             extensions: {
                 relation: {
-                    embedded: false,
                     connectionField: 'deptId'
                 }
             },

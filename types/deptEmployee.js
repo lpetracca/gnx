@@ -9,9 +9,9 @@ const Employee = require('../models/employee').Employee;
 const Department = require('../models/department').Department;
 
 const { fromToDate } = require('../validators/from-toDate.validator');
+const { CantHave2EmployeesAtSameTime } = require('../validators/deptEmployee.validator')
 
-const {
-    GraphQLID, GraphQLObjectType } = graphql;
+const { GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = require('graphql-iso-date');
 
@@ -22,11 +22,13 @@ const DeptEmployeeType = new GraphQLObjectType({
       validations: {
         'CREATE':
                 [
-                    fromToDate
+                    fromToDate,
+                    CantHave2EmployeesAtSameTime
                 ],
         'UPDATE':
                 [
-                    fromToDate
+                    fromToDate,
+                    CantHave2EmployeesAtSameTime
                 ],
       },
     },
@@ -39,7 +41,8 @@ const DeptEmployeeType = new GraphQLObjectType({
             type: EmployeeType,
             extensions: {
                 relation: {
-                connectionField: 'empId',
+                    embedded: false,
+                    connectionField: 'empId',
                 },
             },
             resolve(parent, args) {
@@ -51,6 +54,7 @@ const DeptEmployeeType = new GraphQLObjectType({
             type: DepartmentType,
             extensions: {
                 relation: {
+                    embedded: false,
                     connectionField: 'deptId'
                 }
             },
@@ -58,11 +62,8 @@ const DeptEmployeeType = new GraphQLObjectType({
                 return Department.findById(parent.deptId)
             }
         }
-
     }),
 });
-
-
 
 gnx.connect(DeptEmployee, DeptEmployeeType, 'deptEmployee', 'deptEmployees');
 
