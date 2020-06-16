@@ -44,7 +44,7 @@ const EmployeeType = new GraphQLObjectType({
         },
     },
     
-    fields: () => Object.assign(AuditableObjectFields, {
+    fields: () => Object.assign({
         id: { type: GraphQLID },
         first_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
@@ -52,7 +52,7 @@ const EmployeeType = new GraphQLObjectType({
         birth_date: { type: GraphQLDate },
         gender: { type: SexTypeEnum },
         hire_date: { type: GraphQLDate }
-    }),
+    }, AuditableObjectFields),
 });
 
 

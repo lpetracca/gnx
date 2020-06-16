@@ -33,7 +33,7 @@ const DeptManagerType = new GraphQLObjectType({
       },
     },
 
-    fields: () => Object.assign(AuditableObjectFields, {
+    fields: () => Object.assign({
         id: { type: GraphQLID },
         from_date: { type: GraphQLDate },
         to_date: { type: GraphQLDate },
@@ -62,7 +62,7 @@ const DeptManagerType = new GraphQLObjectType({
             }
         }
 
-    }),
+    }, AuditableObjectFields),
 });
 
 

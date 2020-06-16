@@ -28,7 +28,7 @@ const SalaryType = new GraphQLObjectType({
       },
     },
 
-    fields: () => Object.assign(AuditableObjectFields, {
+    fields: () => Object.assign({
         id: { type: GraphQLID },
         salary: { type: GraphQLInt },
         from_date: { type: GraphQLDate },
@@ -45,7 +45,7 @@ const SalaryType = new GraphQLObjectType({
                 return Employee.findById(parent.empId);
             }
         }
-    }),
+    }, AuditableObjectFields),
 });
 
 

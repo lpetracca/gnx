@@ -35,11 +35,11 @@ const DeptartmentType = new GraphQLObjectType({
       },
     },
 
-    fields: () => Object.assign(AuditableObjectFields, {
+    fields: () => Object.assign({
         id: { type: GraphQLID },
         dept_name: { type: GraphQLString }
         
-    }),
+    }, AuditableObjectFields),
 });
 
 

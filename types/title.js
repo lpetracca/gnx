@@ -33,7 +33,7 @@ const TitleType = new GraphQLObjectType({
         },
     },
     
-    fields: () => Object.assign(AuditableObjectFields, {
+    fields: () => Object.assign({
         id: { type: GraphQLID },
         title: { type: GraphQLString },
         from_date: { type: GraphQLDate },
@@ -50,7 +50,7 @@ const TitleType = new GraphQLObjectType({
                 return Employee.findById(parent.empId);
             }
         }
-    })
+    }, AuditableObjectFields)
 });
 
 
