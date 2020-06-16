@@ -22,7 +22,7 @@ const { DeptManager } = require('../models/deptManager');
 
 
   // Can't delete department with dept employee
-  const CantDeleteDepartmentWithDeptEmployeeError ={
+  const DepartmentHasDeptEmployee ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const DeptEmployeeFound =
@@ -40,7 +40,7 @@ const { DeptManager } = require('../models/deptManager');
 
 
   // Can't delete department with dept manager
-  const CantDeleteDepartmentWithDeptManagerError ={
+  const DepartmentHasDeptManager ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const DeptManagerFound =
@@ -59,7 +59,7 @@ const { DeptManager } = require('../models/deptManager');
   
 module.exports = {
   CantRepeatName,
-  CantDeleteDepartmentWithDeptEmployeeError,
-  CantDeleteDepartmentWithDeptManagerError,
+  DepartmentHasDeptEmployee,
+  DepartmentHasDeptManager
 
   };

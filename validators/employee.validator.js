@@ -47,7 +47,7 @@ class CantBeYoungerThan18Error extends GNXError {
 
   
   // Can't delete employee with salary
-  const CantDeleteEmployeeWithSalaryError ={
+  const EmployeeHasSalary ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const SalaryFound =
@@ -65,7 +65,7 @@ class CantBeYoungerThan18Error extends GNXError {
 
 
   // Can't delete employee with title
-  const CantDeleteEmployeeWithTitleError ={
+  const EmployeeHasTitle ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const TitleFound =
@@ -83,7 +83,7 @@ class CantBeYoungerThan18Error extends GNXError {
   
 
   // Can't delete employee with dept employee
-  const CantDeleteEmployeeWithDeptEmployeeError ={
+  const EmployeeHasDeptEmployee ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const DeptEmployeeFound =
@@ -101,7 +101,7 @@ class CantBeYoungerThan18Error extends GNXError {
 
 
   // Can't delete employee with dept manager
-  const CantDeleteEmployeeWithDeptManagerError ={
+  const EmployeeHasDeptManager ={
     validate: async function(typeName, originalObject, materializedObject) {
         
         const DeptManagerFound =
@@ -121,8 +121,8 @@ class CantBeYoungerThan18Error extends GNXError {
 module.exports = {
   CantRepeatDNI,
   AgeAtLeast18,
-  CantDeleteEmployeeWithSalaryError,
-  CantDeleteEmployeeWithTitleError,
-  CantDeleteEmployeeWithDeptEmployeeError,
-  CantDeleteEmployeeWithDeptManagerError
+  EmployeeHasSalary,
+  EmployeeHasTitle,
+  EmployeeHasDeptEmployee,
+  EmployeeHasDeptManager
 };

@@ -5,8 +5,8 @@ const { AuditableObjectFields } = require('./extended_types/auditableGraphQLObje
 const Department = require('../models/department').Department;
 
 const { CantRepeatName,
-  CantDeleteDepartmentWithDeptEmployeeError,
-  CantDeleteDepartmentWithDeptManagerError } = require('../validators/department.validator')
+  DepartmentHasDeptEmployee,
+  DepartmentHasDeptManager } = require('../validators/department.validator')
 
 const { GraphQLString,
     GraphQLID, GraphQLObjectType } = graphql;
@@ -28,8 +28,8 @@ const DeptartmentType = new GraphQLObjectType({
         
         'DELETE':
         [
-          CantDeleteDepartmentWithDeptEmployeeError,
-          CantDeleteDepartmentWithDeptManagerError
+          DepartmentHasDeptEmployee,
+          DepartmentHasDeptManager
         ]
         
       },

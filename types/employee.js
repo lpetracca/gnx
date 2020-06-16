@@ -7,10 +7,10 @@ const Employee = require('../models/employee').Employee;
 
 const { CantRepeatDNI,
     AgeAtLeast18,
-    CantDeleteEmployeeWithSalaryError,
-    CantDeleteEmployeeWithTitleError,
-    CantDeleteEmployeeWithDeptEmployeeError,
-    CantDeleteEmployeeWithDeptManagerError } = require('../validators/employee.validator');
+    EmployeeHasSalary,
+    EmployeeHasTitle,
+    EmployeeHasDeptEmployee,
+    EmployeeHasDeptManager } = require('../validators/employee.validator');
 
 
 const { GraphQLString, GraphQLID, GraphQLObjectType, GraphQLInt } = graphql;
@@ -36,10 +36,10 @@ const EmployeeType = new GraphQLObjectType({
             
             'DELETE':
             [
-                CantDeleteEmployeeWithSalaryError,
-                CantDeleteEmployeeWithTitleError,
-                CantDeleteEmployeeWithDeptEmployeeError,
-                CantDeleteEmployeeWithDeptManagerError
+                EmployeeHasSalary,
+                EmployeeHasTitle,
+                EmployeeHasDeptEmployee,
+                EmployeeHasDeptManager
             ]
         },
     },
